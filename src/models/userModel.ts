@@ -6,6 +6,11 @@ const userSchema = new Schema(
     email: String,
     password: String,
     level: { type: String, default: 'normal' },
+    firstName: { type: String, default: '' },
+    lastName: { type: String, default: '' },
+    phone: { type: String, default: '' },
+    address: { type: String, default: '' },
+    avatars: String,
   },
   { timestamps: true }
 );
