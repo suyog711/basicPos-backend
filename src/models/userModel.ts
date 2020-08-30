@@ -11,6 +11,8 @@ const userSchema = new Schema(
     phone: { type: String, default: '' },
     address: { type: String, default: '' },
     avatars: String,
+    status: { type: String, enum: ['not_activated', 'activated'], default: 'not_activated' },
+    activateToken: { type: String, default: '' },
   },
   { timestamps: true }
 );
