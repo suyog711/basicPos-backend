@@ -19,6 +19,12 @@ export const jwtSign = (payload: Pick<IUser, '_id' | 'level' | 'username'>) => {
   };
   return jwt.sign(payload, privateKEY, signOptions);
 };
+export const jwtActivationToken = (payload: Pick<IUser, 'username' | 'email'>) => {
+  return jwt.sign(payload, 'process.env.JWT_ACCOUNT_ACTIVATION', { expiresIn: '365d' });
+};
+export const jwtVerifyActivationToken = (token: string) => {
+  return jwt.verify(token, 'process.env.JWT_ACCOUNT_ACTIVATION');
+};
 
 export const jwtVerify = (token: string): any => {
   let signOptions: any = {
@@ -28,6 +34,14 @@ export const jwtVerify = (token: string): any => {
     expiresIn: '30d', // 30 days validity
     algorithm: 'RS256',
   };
-  console.log('tojke here', token);
   return jwt.verify(token, publicKEY, signOptions);
+};
+
+export const jwtSignPwReset = (payload: Pick<IUser, '_id' | 'firstName'>) => {
+  return jwt.sign(payload, 'process.env.JWT_RESET_PASSWORD', {
+    expiresIn: '60m',
+  });
+};
+export const jwtVerifyPwReset = (token: string) => {
+  return jwt.verify(token, 'process.env.JWT_RESET_PASSWORD');
 };

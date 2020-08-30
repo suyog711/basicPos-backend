@@ -10,4 +10,7 @@ export interface IUser extends Document {
   lastName: string;
   phone: string;
   address: string;
+  status: string;
+  activateToken: string;
+  resetPasswordToken: string;
 }
