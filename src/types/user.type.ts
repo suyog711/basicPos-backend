@@ -12,4 +12,5 @@ export interface IUser extends Document {
   address: string;
   status: string;
   activateToken: string;
+  resetPasswordToken: string;
 }

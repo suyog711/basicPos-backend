@@ -5,6 +5,7 @@ import cors from 'cors';
 import './config/db';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
+import passwordRoutes from './routes/passwordRoutes';
 const app: Express = express();
 
 app.use(cors());
@@ -13,6 +14,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname + '/../uploaded')));
 app.use(authRoutes);
 app.use('/users', userRoutes);
+app.use('/password', passwordRoutes);
 app.get('/', function (req, res, next) {
   res.status(200).json({ message: 'Hello Nodejs' });
 });
