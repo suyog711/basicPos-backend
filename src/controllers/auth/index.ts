@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import { IUser } from '../../types/user.type';
 import { jwtSign, jwtActivationToken, jwtVerifyActivationToken } from '../../utils/jwt';
 import { sendActivationLink } from '../../utils/mailer';
+import config from '../../config';
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -70,10 +71,10 @@ export const activateUser = async (req: Request, res: Response, next: NextFuncti
         activateToken: '',
       };
       let doc = await Users.findOneAndUpdate({ activateToken: token }, updatedFields);
-      return res.redirect('http://localhost:3000/login/success');
+      return res.redirect(`${config.WEB_URL}/login/success`);
     }
   } catch (error) {
     console.log('JWT VERIFY IN ACCOUNT ACTIVATION ERROR', error);
-    return res.redirect('http://localhost:3000/login/error');
+    return res.redirect(`${config.WEB_URL}/login/error`);
   }
 };

@@ -2,19 +2,20 @@ import express, { Express } from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config({ path: path.resolve(__dirname + '/../../.env') });
 import './config/db';
-import authRoutes from './routes/authRoutes';
-import userRoutes from './routes/userRoutes';
-import passwordRoutes from './routes/passwordRoutes';
+
+import router from './routes/index';
+
 const app: Express = express();
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname + '/../uploaded')));
-app.use(authRoutes);
-app.use('/users', userRoutes);
-app.use('/password', passwordRoutes);
+app.use('/api/v1', router);
+
 app.get('/', function (req, res, next) {
   res.status(200).json({ message: 'Hello Nodejs' });
 });
@@ -25,5 +26,5 @@ app.listen(port, (err, done) => {
     console.log('error', err);
     return;
   }
-  console.log('Server is running... on portsssssss ' + port);
+  console.log('Server is running... on port ' + port);
 });

@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
+import config from '.';
 
 // const uri: string = `mongodb+srv://suyog:1234qwer@cluster007.lfltg.gcp.mongodb.net/basicPos?retryWrites=true&w=majority`;
-const uri: string = `mongodb://127.0.0.1:27017/basicPos`;
+const uri: string = config.DB_URL;
 
 mongoose.connect(uri, { useNewUrlParser: true });
 
