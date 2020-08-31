@@ -1,5 +1,5 @@
 export default {
-  BASE_URL: 'http://localhost:8080',
+  BASE_URL: process.env.BASE_URL || 'http://localhost:8080',
   WEB_URL: process.env.REACT_APP_URI,
   DB_URL:
     process.env.NODE_ENV === 'production'
