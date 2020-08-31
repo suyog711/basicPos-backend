@@ -1,7 +1,8 @@
-import jwt from 'jsonwebtoken';
+import jwt, { Secret } from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
 import { IUser } from '../types/user.type';
+import config from '../config';
 
 var publicKEY = fs.readFileSync(path.join(__dirname + '../../../../public.key'), 'utf8');
 var privateKEY = fs.readFileSync(path.join(__dirname + '../../../../private.key'), 'utf8');
@@ -20,10 +21,10 @@ export const jwtSign = (payload: Pick<IUser, '_id' | 'level' | 'username'>) => {
   return jwt.sign(payload, privateKEY, signOptions);
 };
 export const jwtActivationToken = (payload: Pick<IUser, 'username' | 'email'>) => {
-  return jwt.sign(payload, 'process.env.JWT_ACCOUNT_ACTIVATION', { expiresIn: '365d' });
+  return jwt.sign(payload, config.JWT_ACCOUNT_ACTIVATION as Secret, { expiresIn: '365d' });
 };
 export const jwtVerifyActivationToken = (token: string) => {
-  return jwt.verify(token, 'process.env.JWT_ACCOUNT_ACTIVATION');
+  return jwt.verify(token, config.JWT_ACCOUNT_ACTIVATION as Secret);
 };
 
 export const jwtVerify = (token: string): any => {
@@ -38,10 +39,10 @@ export const jwtVerify = (token: string): any => {
 };
 
 export const jwtSignPwReset = (payload: Pick<IUser, '_id' | 'firstName'>) => {
-  return jwt.sign(payload, 'process.env.JWT_RESET_PASSWORD', {
+  return jwt.sign(payload, config.JWT_RESET_PASSWORD as Secret, {
     expiresIn: '60m',
   });
 };
 export const jwtVerifyPwReset = (token: string) => {
-  return jwt.verify(token, 'process.env.JWT_RESET_PASSWORD');
+  return jwt.verify(token, config.JWT_RESET_PASSWORD as Secret);
 };
