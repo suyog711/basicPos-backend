@@ -20,8 +20,8 @@ app.get('/', function (req, res, next) {
   res.status(200).json({ message: 'Hello Nodejs' });
 });
 
-const port = 8080;
-app.listen(port, (err, done) => {
+const port: any = process.env.PORT || 8080;
+app.listen(port, (err: any, done: any) => {
   if (err) {
     console.log('error', err);
     return;
