@@ -7,4 +7,5 @@ export default {
       : 'mongodb://127.0.0.1:27017/basicPos',
   JWT_ACCOUNT_ACTIVATION: process.env.JWT_ACCOUNT_ACTIVATION,
   JWT_RESET_PASSWORD: process.env.JWT_RESET_PASSWORD,
+  ALLOWED_ORIGINS: ['https://basicpos711.netlify.app/', 'http://localhost:3000'],
 };

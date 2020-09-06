@@ -7,10 +7,22 @@ dotenv.config({ path: path.resolve(__dirname + '/../../.env') });
 import './config/db';
 
 import router from './routes/index';
+import config from './config';
 
 const app: Express = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (config.ALLOWED_ORIGINS.indexOf(origin) === -1) {
+        var msg = 'The CORS policy for this site does not ' + 'allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname + '/../uploaded')));
